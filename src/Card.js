@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Card.css';
 import ReactDom from 'react-dom';
-//need to bring in people api for props- GET people... where do I make this route?
+//need to bring in people api for props- GET people... where do I make this route?  
 //need to bring in planets api for props - GET planets... where do I make this route?
 
 class Card extends Component {
@@ -16,6 +16,19 @@ class Card extends Component {
       //state for homeworld: ''
     }
   }
+
+//AJAX?????
+  // componentDidMount() {
+  //   let root = 'http://localhost:3008';
+
+  //   $.ajax({
+  //     url: root + '/people',
+  //     method: 'GET',
+  //     dataType: 'JSON'
+  //   }).done( function (data) {
+  //     console.log(data);
+  //   });
+  // }
 
   render() {
     return (
