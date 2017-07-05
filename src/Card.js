@@ -5,16 +5,10 @@ import ReactDom from 'react-dom';
 //need to bring in planets api for props - GET planets... where do I make this route?
 
 class Card extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      //state from people
-      name: '',
-      birth_year: '',
-      homeworld: null
-      //state for homeworld: ''
-    }
+    this.state = {person: []}
   }
 
 //AJAX?????
@@ -30,27 +24,39 @@ class Card extends Component {
   //   });
   // }
 
+  componentDidMount() {
+    this.PersonList();
+  }
+
+  PersonList() {
+    return $.getJSON('http://localhost:3008/people')
+      .then((data) => {
+        this.setState({ person: data.results });
+      });
+  }
+
   render() {
-    return (
-      <div className='card'>
-        <div className='card-content'>
-          	<div className='card-name'>{this.props.people.name}</div>
-          	<img src={'http://localhost:3008/' + {this.props.people.name} + '.jpg'} alt='profile'/>
-            <p>
-                <span>Birthday:</span>
-                <span>{this.props.people.birth_year}</span>
-            </p>
-            <p>
-                {/* Note that in order to get the homeworld's name, you have to get the planet name from a different endpoint than the people
+    const persons = this.state.person.map((item, i) => {
+      return (
+        <div className='card'>
+          <div className='card-content'>
+              <div className='card-name'>{this.props.people.name}</div>
+              <img src={'http://localhost:3008/' + {this.props.persons.name} + '.jpg'} alt='profile'/>
+              <p>
+                  <span>Birthday:</span>
+                  <span>{this.props.persons.birth_year}</span>
+              </p>
+              <p>
+                  {/* Note that in order to get the homeworld's name, you have to get the planet name from a different endpoint than the people
 
-                Need to associate id from people to corresponding id in planets */}
-                <span>Homeworld:</span>
-                <span>{this.props.planets.name}</span>
-            </p>
-        </div>
-    </div>
-
-    );
+                  Need to associate id from people to corresponding id in planets */}
+                  <span>Homeworld:</span>
+                  <span>{this.props.planets.name}</span>
+              </p>
+          </div>
+      </div>  
+      )
+    });
   }
 }
 
